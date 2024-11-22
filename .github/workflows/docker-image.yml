@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   build:
@@ -13,23 +13,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # Inicia sesión en Docker Hub con el token
-    - name: Login to Docker Hub
+    # Inicia sesión en Docker Hub y construye la imagen
+    - name: Build and push Docker image
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}  # Tu nombre de usuario de Docker Hub
-        password: ${{ secrets.DOCKER_HUB_TOKEN }}  # El token generado previamente
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-    # Construir la imagen de Docker y generar un tag
-    - name: Build the Docker image
-      id: build
-      run: |
-        IMAGE_TAG=gonzat/repogithub:$(date +%s)  # Usa tu nombre de usuario en lugar de 'mi-usuario'
-        docker build . --file Dockerfile --tag $IMAGE_TAG  # Etiquetar la imagen con el tag
-        echo "Built image with tag: $IMAGE_TAG"  # Mostrar el tag de la imagen construida
-        echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV  # Guardar el tag en el ambiente global
+    - run: |
+        IMAGE_TAG=gonzat/repogithub:$(date +%s)
+        docker build . --file Dockerfile --tag $IMAGE_TAG
+        docker push $IMAGE_TAG
 
-    # Empujar la imagen al Docker Hub
-    - name: Push the Docker image
-      run: |
-        docker push $IMAGE_TAG  # Usar el tag previamente guardado en el ambiente global
