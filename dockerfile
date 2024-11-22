@@ -1,6 +1,4 @@
-FROM nginx:latest
+FROM nginx:1.19-alpine
 # Copia un archivo index.html que contiene el mensaje "FELICITACIONES!!" en el directorio raíz del servidor web de nginx
-COPY ./docker/index.html /usr/share/nginx/html/
-# Define el comando predeterminado a ejecutar cuando se inicie el contenedor
-CMD ["nginx", "-g", "daemon off;"]
+ADD index.html /usr/share/nginx/html
 
