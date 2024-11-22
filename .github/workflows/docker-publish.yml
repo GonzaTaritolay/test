@@ -34,4 +34,4 @@ jobs:
 
     - run: |
         docker tag mi-nginx-app usuario/docker-mi-nginx-app:latest
-        docker push usuario/docker-mi-nginx-app:latest
+        docker push gonzat/repocidc:latest
