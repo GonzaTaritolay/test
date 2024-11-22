@@ -1,8 +1,8 @@
 on: push
-name: CI
+name: deploy
 jobs:
-    CI:
-      name: CI to cluster
+    deploy:
+      name: deploy to cluster
       runs-on: ubuntu-latest
       steps:
       - uses: actions/checkout@master
