@@ -25,9 +25,10 @@ jobs:
       run: |
         IMAGE_TAG=my-image-name:$(date +%s)  # Generar un tag único basado en la fecha
         docker build . --file Dockerfile --tag $IMAGE_TAG  # Etiquetar la imagen con el tag
-        echo $IMAGE_TAG  # Muestra el tag para asegurarse que se ha creado correctamente
+        echo "Built image with tag: $IMAGE_TAG"  # Mostrar el tag de la imagen construida
 
     # Empujar la imagen al Docker Hub
     - name: Push the Docker image
       run: |
+        IMAGE_TAG=my-image-name:$(date +%s)  # Generar el mismo tag para el push
         docker push $IMAGE_TAG  # Usar el tag previamente generado
