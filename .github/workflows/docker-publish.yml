@@ -33,5 +33,5 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - run: |
-        docker tag mi-nginx-app usuario/docker-mi-nginx-app:latest
+        docker tag mi-nginx-app gonzat/repocidc:latest
         docker push gonzat/repocidc:latest
