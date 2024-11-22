@@ -13,13 +13,13 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: . # Carpeta actual como contexto
-          file: ./Dockerfile # Dockerfile en el nivel actual
-          push: true # Habilita el push automático
+          context: .
+          file: ./Dockerfile
+          push: true
           tags: |
-            gonzat/pruebaimage:latest # Etiqueta en Docker Hub
-            gonzat/pruebaimage:${{ github.sha }} # Etiqueta única basada en el SHA
-          platforms: linux/amd64 # Define la plataforma
+            gonzat/pruebaimage:latest
+            gonzat/pruebaimage:${{ github.sha }}
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+
