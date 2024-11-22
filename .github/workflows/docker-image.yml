@@ -20,15 +20,16 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}   # Tu nombre de usuario de Docker Hub
         password: ${{ secrets.DOCKER_HUB_TOKEN }}   # El token generado previamente
 
-    # Construir la imagen de Docker
+    # Construir la imagen de Docker y generar un tag
     - name: Build the Docker image
+      id: build
       run: |
         IMAGE_TAG=my-image-name:$(date +%s)  # Generar un tag único basado en la fecha
         docker build . --file Dockerfile --tag $IMAGE_TAG  # Etiquetar la imagen con el tag
         echo "Built image with tag: $IMAGE_TAG"  # Mostrar el tag de la imagen construida
+        echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV  # Guardar el tag en el ambiente global
 
     # Empujar la imagen al Docker Hub
     - name: Push the Docker image
       run: |
-        IMAGE_TAG=my-image-name:$(date +%s)  # Generar el mismo tag para el push
-        docker push $IMAGE_TAG  # Usar el tag previamente generado
+        docker push $IMAGE_TAG  # Usar el tag previamente guardado en el ambiente global
